@@ -39,3 +39,12 @@ while(true){
 }
 
 $ssadsa = readline("ss");
+
+
+/*
+
+		//statment para encontra do codigo do emoji
+		/*if (preg_match('/\b(' . preg_quote($needle, '/') . '\w+)/', $ticker, $match)) {
+			$emoji = emojiConv($match[1]);
+			$ticker =  str_replace($match[1], $emoji, $ticker); //replacedo codigo pro emoji
+		}*/
