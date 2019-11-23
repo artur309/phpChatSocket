@@ -148,6 +148,8 @@ if(ctype_space($user) or $user="") //se usr n digiar texto
 	$user ="Guest User";
 
 while (true) {
+	
+
 
 	$ticker = readline('Digite algo ou clique na tecla "q" para sair: ');
 	if ($ticker == 'q') exit;
@@ -164,7 +166,9 @@ while (true) {
 		echo "Socket connection failed!";
 
 	//Envia para o servidor e recebe a menssagem do outro utilizador
-	else {
+	else {	
+		echo "╔═══════════════════════════════════════════════════════╗";
+		
 		//troca os palavras de baixo de baixo calao, pelo censrua no array
 		$ticker = str_replace(array_keys($badwords), array_values($badwords), $ticker);
 		//troca os codigos para emojis
@@ -175,5 +179,7 @@ while (true) {
 		echo ("$receber \n");
 
 		echo socket_read($socket, 1024);
+
+		echo "╚═══════════════════════════════════════════════════════╝";
 	}
 }
