@@ -162,7 +162,6 @@ while (true) {
 
 	//Envia para o servidor e recebe a menssagem do outro utilizador
 	else {
-
 		//troca os palavras de baixo de baixo calao, pelo censrua no array
 		$ticker = str_replace(array_keys($badwords), array_values($badwords), $ticker);
 		//troca os codigos para emojis

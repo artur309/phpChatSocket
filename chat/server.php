@@ -47,9 +47,6 @@ while (true) {
 	//Escreve na socket do cliente Seja Bem-Vindo nome do cliente
 	socket_write($spawn[$i], "\n $client\n", 9080);
 
-	//escreve o nome do cliente em verde
-	echo "$client \n";
-
 	//Fecha a socket do cliente
 	socket_close($spawn[$i]);
 	socket_write($spawn[$i], $client, 9080); //Volta a escrever a socket do cliente que vai ser enviada para o server
