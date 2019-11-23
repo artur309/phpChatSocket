@@ -144,6 +144,9 @@ $port = 2020; //Porta
 $date = DATE("H:i"); //Variavel para mostar a hora
 $user = readline('Insira o seu nome: '); //Leitura do nome do cliente
 
+if(ctype_space($str))
+	$user ="Guest User";
+
 while (true) {
 
 	$ticker = readline('Digite algo ou clique na tecla "q" para sair: ');
