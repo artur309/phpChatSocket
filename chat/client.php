@@ -8,7 +8,7 @@ function emojiMenu(){
 
 		_sad --> ( ͡° ʖ̯ ͡°) \n
 		_happy --> \(ᵔᵕᵔ)/ \n
-		_vibe_check --> ╰( ͡° ͜ʖ ͡° )つ ︻╦╤─ \n
+		_vibecheck --> ╰( ͡° ͜ʖ ͡° )つ ︻╦╤─ \n
 		_wtf --> (._.) \n
 		_tux --> 
 			 .--.
@@ -32,49 +32,6 @@ function emojiMenu(){
 		░░░░█░░▄█▀█▀▀█▀▀▀▀▀▀█▀▀█▀█▀▀█░░░
 		░░░░▀▀▀▀░░▀▀▀░░░░░░░░▀▀▀░░▀▀░░░░
 		\n";
-}
-
-function emojiConv($emoji){
-	switch ($emoji) {
-		case "_sad":
-			$emoji = "( ͡° ʖ̯ ͡°)";
-			break;
-		case "_happy":
-			$emoji = "\(ᵔᵕᵔ)/";
-			break;
-		case "_vibe_check":
-			$emoji = "╰( ͡° ͜ʖ ͡° )つ ︻╦╤─";
-			break;
-		case "_wtf":
-			$emoji = "(._.)";
-			break;
-		case "_tux":
-			$emoji = "
-			 .--.
-			|o_o |
-			|:_/ |
-		   //   \ \
-		  (|     | )
-		 /'\_   _/`\
-		 \___)=(___/ ";
-			break;
-		case "_cat":
-			$emoji = "
-		░░░░░░░▄▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▄░░░░░░
-		░░░░░░█░░▄▀▀▀▀▀▀▀▀▀▀▀▀▀▄░░█░░░░░
-		░░░░░░█░█░▀░░░░░▀░░▀░░░░█░█░░░░░
-		░░░░░░█░█░░░░░░░░▄▀▀▄░▀░█░█▄▀▀▄░
-		█▀▀█▄░█░█░░▀░░░░░█░░░▀▄▄█▄▀░░░█░
-		▀▄▄░▀██░█▄░▀░░░▄▄▀░░░░░░░░░░░░▀▄
-		░░▀█▄▄█░█░░░░▄░░█░░░▄█░░░▄░▄█░░█
-		░░░░░▀█░▀▄▀░░░░░█░██░▄░░▄░░▄░███
-		░░░░░▄█▄░░▀▀▀▀▀▀▀▀▄░░▀▀▀▀▀▀▀░▄▀░
-		░░░░█░░▄█▀█▀▀█▀▀▀▀▀▀█▀▀█▀█▀▀█░░░
-		░░░░▀▀▀▀░░▀▀▀░░░░░░░░▀▀▀░░▀▀░░░░
-		";
-			break;
-	}
-	return $emoji;
 }
 
 echo "
@@ -152,7 +109,35 @@ $badwords = array(
 	"vagina" => "v____"
 );
 
-$emoji = "";
+//array de emojis
+$emojis = array(
+	"_sad" => "( ͡° ʖ̯ ͡°)",
+	"_happy" => "\(ᵔᵕᵔ)/",
+	"_vibecheck" => "╰( ͡° ͜ʖ ͡° )つ ︻╦╤─",
+	"_wtf" => "(._.)",
+	"_tux" =>",
+			 .--.
+			|o_o |
+			|:_/ |
+		   //   \ \
+		  (|     | )
+		 /'\_   _/`\
+		 \___)=(___/ ",
+	"_cat" =>"
+		░░░░░░░▄▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▄░░░░░░
+		░░░░░░█░░▄▀▀▀▀▀▀▀▀▀▀▀▀▀▄░░█░░░░░
+		░░░░░░█░█░▀░░░░░▀░░▀░░░░█░█░░░░░
+		░░░░░░█░█░░░░░░░░▄▀▀▄░▀░█░█▄▀▀▄░
+		█▀▀█▄░█░█░░▀░░░░░█░░░▀▄▄█▄▀░░░█░
+		▀▄▄░▀██░█▄░▀░░░▄▄▀░░░░░░░░░░░░▀▄
+		░░▀█▄▄█░█░░░░▄░░█░░░▄█░░░▄░▄█░░█
+		░░░░░▀█░▀▄▀░░░░░█░██░▄░░▄░░▄░███
+		░░░░░▄█▄░░▀▀▀▀▀▀▀▀▄░░▀▀▀▀▀▀▀░▄▀░
+		░░░░█░░▄█▀█▀▀█▀▀▀▀▀▀█▀▀█▀█▀▀█░░░
+		░░░░▀▀▀▀░░▀▀▀░░░░░░░░▀▀▀░░▀▀░░░░"
+
+);
+
 $needle = '_'; //para fzr check do codigo pro emoji
 
 $host = "127.0.0.1"; //Ip da maquina
@@ -162,7 +147,7 @@ $user = readline('Insira o seu nome: '); //Leitura do nome do cliente
 
 while (true) {
 
-	$ticker = readline("\nDigite algo ou clique na tecla 'q' para sair: ");
+	$ticker = readline('Digite algo ou clique na tecla "q" para sair: ');
 	if ($ticker == 'q') exit;
 
 	// Criação da socket
@@ -179,14 +164,10 @@ while (true) {
 	//Envia para o servidor e recebe a menssagem do outro utilizador
 	else {
 
-		//statment para encontra do codigo do emoji
-		if (preg_match('/\b(' . preg_quote($needle, '/') . '\w+)/', $ticker, $match)) {
-			$emoji = emojiConv($match[1]);
-			$ticker =  str_replace($match[1], $emoji, $ticker); //replacedo codigo pro emoji
-		}
-
 		//troca os palavras de baixo de baixo calao, pelo censrua no array
 		$ticker = str_replace(array_keys($badwords), array_values($badwords), $ticker);
+		//troca os codigos para emojis
+		$ticker = str_replace(array_keys($emojis), array_values($emojis), $ticker);
 
 		socket_write($socket, "<$date> $user digitou --> $ticker", 1024);
 		$receber = socket_read($socket, 1024);
