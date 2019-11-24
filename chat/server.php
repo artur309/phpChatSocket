@@ -2,9 +2,9 @@
 error_reporting(0);
 set_time_limit(0); //Mete o limite de resposta como 0
 
-$host = "127.0.0.1"; //Ip da maquina
-$port = 2020; //Porta
-$chat = [];
+$host = "127.0.0.1"; //IP do Server
+$port = 2020; //Porta do Server
+$chat = []; //array para guardar e tratar mensagens
 
 echo "
  _                     _ _                __              _____                            _   _                 
