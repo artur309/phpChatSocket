@@ -24,9 +24,8 @@ function send_message($msg){
 }
 
 function printArray($array){
-    for ($i = 0; $i < count($array); $i++) {
-        echo ($array[$i]);
-    }
+	for ($i = 0; $i < count($array); $i++)
+		echo ($array[$i]);
 }
 
 echo "
