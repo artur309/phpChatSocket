@@ -5,23 +5,6 @@ function cls(){
     echo "\e[H\e[J";
 }
 
-$_cores = array(
-    'LIGHT_GREEN' => "[1;32m",
-    'WHITE' => "[1;37m",
-    'NORMAL' => "[0m",
-);
-
-function textcolored($texto, $cor = "NORMAL", $back =1){
-    global $color;
-    $out = $color["$cor"];
-    if ($out == "")
-        $out="[0m";
-    if ($back)
-        return chr(27)."$out$texto".chr(27).chr(27)."[0m";
-    else
-        echo chr(27)."$out$texto".chr(27).chr(27)."[0m";
-}
-
 function opcao(){
     cls();
     echo("Escolhe uma opcao: 
@@ -33,16 +16,14 @@ function opcao(){
 
 function history($historico){
     for ($i=0; $i < count($historico); $i++) { 
-        if ($historico[$i] != "\n") {
+        if ($historico[$i] != "\n")
             echo $historico[$i];
-        }
     }
 }
 
 function printArray($array){
-    for ($i=0; $i < count($array); $i++) { 
+    for ($i=0; $i < count($array); $i++) 
         echo ($array[$i]);
-    }
 }
 
 cls();
@@ -59,7 +40,7 @@ if ($opcao == 1) {
     cls();
 
     $output=socket_read($sock,8192);
-    echo textcolored("$output \n","LIGHT_GREEN");
+    echo "$output \n";
 
     while(true){
         $input = trim(readline(": "));
@@ -69,7 +50,7 @@ if ($opcao == 1) {
             socket_write($sock,$input,strlen($input));
             socket_shutdown($sock, 2);
             socket_close($sock);
-            echo textcolored("Sessao termianda\n","WHITE");
+            echo "Sessao terminada";
             break;
         }
         else if($input == ":hist"){
@@ -100,7 +81,7 @@ else if($opcao ==2){
         $input = readline(": ");
         cls();
         if ($input =="q") {
-            echo textcolored("a terminar sessao\n","white");
+            echo "A terminar sessao\n";
             socket_shutdown($sock,2);
             socket_close($sock);
             echo("Sessao terminada com sucesso.\n\n");
@@ -118,4 +99,3 @@ else{
     $opcao=opcao();
     goto start;
 }
-?>
