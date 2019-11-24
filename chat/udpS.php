@@ -125,7 +125,7 @@ if ($opcao==1) {
           
            \n");
 
-           socket_write($newsock,"Bem Vindo ao server!\n Há".(count($clientes)-1)."clientes(s) conectados ao servidor\n
+           socket_write($newsock,"Bem Vindo ao server!\n Existe ".(count($clientes)-1)."clientes(s) conectados ao servidor\n
            Para sair digite 'q' e para ver o historico digite 'hist'");
 
            socket_getpeername($newsock,$ip);
