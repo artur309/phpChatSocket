@@ -6,6 +6,30 @@ $host = "127.0.0.1"; //IP do Server
 $port = 2020; //Porta do Server
 $chat = []; //array para guardar e tratar mensagens
 
+function send_message($msg){
+	global $clients;
+	foreach($clients as $changed_socket)
+	{
+		@socket_write($changed_socket,$msg,strlen($msg));
+	}
+	return true;
+	
+	/*$read = $clientes;
+		while(true) {
+				$read = $clientes;
+				$write = array();
+				$except = array();
+				if(socket_select($read, $write, $except, 0) < 1)
+					continue;*/
+	
+}
+
+function printArray($array){
+    for ($i = 0; $i < count($array); $i++) {
+        echo ($array[$i]);
+    }
+}
+
 echo "
  _                     _ _                __              _____                            _   _                 
 | |                   | (_)              / _|            / ____|                          | | (_)                
@@ -29,7 +53,7 @@ while(true){
 	//Verificacao do socket
 	$spawn[++$i] = socket_accept($socket) or die("Could not accept incoming connection\n");
 
-	echo chr(27).chr(91).'H'.chr(27).chr(91).'J';  //limpa tela 
+	echo chr(27).chr(91).'H'.chr(27).chr(91).'J'; //limpa tela 
 	echo "\n_______________________________________________________\n";
 
 	$client = socket_read($spawn[$i], 1024) or die("Could not read input\n"); //Lê a socket do cliente 
@@ -49,7 +73,7 @@ while(true){
 		if (count($chat) > 20)
 			array_shift($chat);
 	}
-
+	
 	//Escreve na socket do cliente Seja Bem-Vindo nome do cliente
 	socket_write($spawn[$i], "\n $client\n", 9080);
 
@@ -57,11 +81,12 @@ while(true){
 	socket_close($spawn[$i]);
 	socket_write($spawn[$i], $client, 9080); //Volta a escrever a socket do cliente que vai ser enviada para o server
 	echo "\n_______________________________________________________\n";
+
+	$json = json_encode($chat);
+	socket_write($socket,$json);
 }
 
 // O que o cliente envia vai ser enviado para o server reverse client input and send back
 $output = strrev($input) . "\n";
 socket_write($chat, $output, strlen($output)) or die("Could not write output\n");
 socket_close($socket);
-
-readline("");

@@ -37,6 +37,12 @@ function emojiMenu(){
 		░░░░▀▀▀▀░░▀▀▀░░░░░░░░▀▀▀░░▀▀░░░░\n";
 }
 
+function printArray($array){
+	$array = [];
+    for ($i = 0; $i < count($array); $i++)
+        echo ($array[$i]);
+}
+
 echo "
  ██████╗██╗  ██╗ █████╗ ████████╗    ██████╗ ██╗  ██╗██████╗ 
 ██╔════╝██║  ██║██╔══██╗╚══██╔══╝    ██╔══██╗██║  ██║██╔══██╗
@@ -83,7 +89,7 @@ $emojis = array(
 $host = "127.0.0.1"; //IP Server
 $port = 2020; //Porta Server
 $date = DATE("H:i"); //Hora do cliente
-echo "Bem vindo ao chat PHP!\nDigite texto para enviar\nDigite 'q' para sair\nDigite _emoji para ver lista emojis\n\n";
+echo "Bem vindo ao chat PHP!\nDigite texto para enviar\nDigite 'q' para sair\nDigite '_emoji' para ver lista emojis\n\n";
 $user = readline('Insira o seu nome: '); //Leitura do nome do cliente
 
 if (ctype_space($user) or $user == "") //se user nao digiar texto
@@ -91,7 +97,7 @@ if (ctype_space($user) or $user == "") //se user nao digiar texto
 
 //socket_write($socket, "$user entrou no chat", 1024);	
 
-while (true){
+while (true) {
 
 	echo "
 	 ██████╗██╗  ██╗ █████╗ ████████╗    ██████╗ ██╗  ██╗██████╗ 
@@ -100,10 +106,12 @@ while (true){
 	██║     ██╔══██║██╔══██║   ██║       ██╔═══╝ ██╔══██║██╔═══╝ 
 	╚██████╗██║  ██║██║  ██║   ██║       ██║     ██║  ██║██║     
 	╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚═╝     ╚═╝  ╚═╝╚═╝ \n\n";
-	
-	echo "\n";$ticker = readline('Msg: ');
+
+	echo "\n";
+	$ticker = readline('Msg: ');
 	//echo chr(27).chr(91).'H'.chr(27).chr(91).'J';  //limpa tela 
-	
+
+
 	if ($ticker == 'q') exit; //user sai do chat
 	elseif ($ticker == '_emoji') echo emojiMenu(); //apresenta menu de emojis
 
@@ -137,4 +145,10 @@ while (true){
 			echo "╚═══════════════════════════════════════════════════════╝";
 		}
 	}
+	
+	$output = socket_read($socket, 8192);
+	$output = json_decode($output, true);
+	printArray($output);
+	
+	echo "╚═══════════════════════════════════════════════════════╝";
 }
