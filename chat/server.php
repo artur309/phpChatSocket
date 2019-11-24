@@ -6,28 +6,6 @@ $host = "127.0.0.1"; //IP do Server
 $port = 2020; //Porta do Server
 $chat = []; //array para guardar e tratar mensagens
 
-function send_message($msg){
-	global $clients;
-	foreach($clients as $changed_socket){
-		@socket_write($changed_socket,$msg,strlen($msg));
-	}
-	return true;
-	
-	/*$read = $clientes;
-		while(true) {
-				$read = $clientes;
-				$write = array();
-				$except = array();
-				if(socket_select($read, $write, $except, 0) < 1)
-					continue;*/
-	
-}
-
-function printArray($array){
-	for ($i = 0; $i < count($array); $i++)
-		echo ($array[$i]);
-}
-
 echo "
  _                     _ _                __              _____                            _   _                 
 | |                   | (_)              / _|            / ____|                          | | (_)                
