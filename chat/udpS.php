@@ -12,7 +12,7 @@ function opcao(){
         \nTCP       - 1
         \nUDP       - 2
         \nSair      - 3\n");
-    return $opcao = readline(": ");
+    return $opcao = readline("Opcao: ");
 }
 
 function emoji($data){
@@ -25,23 +25,6 @@ function emoji($data){
         if (in_array($key, $palavra))
             $data = str_replace($key,$value,$data);
     }
-}
-
-$color = array(
-    'LIGHT_GREEN' => "[1;32m",
-    'WHITE' => "[1;37m",
-    'NORMAL' => "[0m",
-);
-
-function textcolored($texto, $cor = "NORMAL", $back =1){
-    global $color;
-    $out = $color["$cor"];
-    if ($out == "")
-        $out="[0m";
-    if ($back)
-        return chr(27)."$out$texto".chr(27).chr(27)."[0m";
-    else
-        echo chr(27)."$out$texto".chr(27).chr(27)."[0m";
 }
 
 function Msg($text){
@@ -84,7 +67,7 @@ function IP(){
         \nLocalhost     - 1
         \nRemoto        - 2
         \nSair          - 3\n");
-    $opcao = readline(": ");
+    $opcao = readline("Opcao: ");
     if($opcao ==1)
         return ("localhost");
     else if ($opcao == 2) {
@@ -128,8 +111,8 @@ if ($opcao==1) {
     while(true){
         $read = $clientes;
         $write = array();
-        $except = array();
-        if (socket_select($read,$write,$except,0) < 1) continue;
+        $except = array(); 
+        if(socket_select($read,$write,$except,0) < 1) continue;
         if (in_array($sock,$read)) {
             $clientes[] = $newsock = socket_accept($sock);
             socket_write($newsock,"
@@ -149,8 +132,7 @@ if ($opcao==1) {
            cls();
 
            //mensagem do cliente
-
-           $text= textcolored("Novo cliente conectado: ${$ip}\n","LIGHT_GREEN");
+           $text= "Novo cliente conectado: ${$ip}\n";
            Msg($text);
            printArray($talkback);
            
@@ -164,7 +146,7 @@ if ($opcao==1) {
             if ($data === false || $data == "q") {
                 $key = array_search($read_sock,$clientes);
                 unset($clientes[$key]);
-                $text = textcolored("Cliente {$ip} desconectado.\n","WHITE");
+                $text = "Cliente {$ip} desconectado.\n";
                 Msg($text);
                 printArray($talkback);
                 continue;
@@ -190,15 +172,16 @@ if ($opcao==1) {
         }
         socket_close($sock);
     }
-
 }
+
+//UDP
 else if ($opcao == 2) {
     $sock = @socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
     if (!$sock) die ("Não foi possivel criar o socket");
     if (!@socket_bind($sock,$ip,$port)) die("Não foi possivel fazer bind do socket");
     
     cls();
-    echo textcolored("Server Room $ip Porta: $port", "LIGHT_SCREEN");
+    echo "Server Room $ip Porta: $port";
 
     while(true){
         socket_recvfrom($sock, $data, 1024, 0, $ip_cliente,$porta_cliente);
@@ -211,11 +194,7 @@ else if ($opcao == 2) {
         $json = json_encode($talkback);
         socket_sendto($sock,$json,strlen($json),0,$ip_cliente,$porta_cliente);
     }
-
     socket_close($sock);
-
-
-
 }
 elseif($opcao ==3){}
 else{
@@ -224,5 +203,3 @@ else{
 
     goto start;
 }
-
-?>
