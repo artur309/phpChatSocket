@@ -42,6 +42,7 @@ $ssadsa = readline("ss");
 
 
 /*
+$needle = '_'; //para fzr check do codigo pro emoji
 
 		//statment para encontra do codigo do emoji
 		/*if (preg_match('/\b(' . preg_quote($needle, '/') . '\w+)/', $ticker, $match)) {
