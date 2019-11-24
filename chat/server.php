@@ -26,6 +26,7 @@ echo "
 
 //Enquanto houver um cliente
 while (true) {
+
 	//Verificacao do socket
 	$spawn[++$i] = socket_accept($socket) or die("Could not accept incoming connection\n");
 
@@ -33,13 +34,12 @@ while (true) {
 	$client = socket_read($spawn[$i], 1024) or die("Could not read input\n"); //Lê a socket do cliente 
 	$chat[$i] = $client; //insercao das mensagens num array para guardar chat	
 
-	for ($x = 0; $x < 20; $x++) {
+	//tratamento do array chat
+	for ($x = 0; $x < 20; $x++){
 		echo $chat[$x] . "\n";
 		if (count($chat) > 20)
 			array_shift($chat);
 	}
-
-	//faz a limpeza do chat, fazendo pushup
 
 	//var_dump(count($chat));
 	//var_dump($chat);
