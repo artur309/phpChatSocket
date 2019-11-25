@@ -105,6 +105,9 @@ $opcao = opcao();
     goto start;
 }*/
 
+$topChat = "╔". str_repeat("═",100) ."╗\n";
+$bottomChat = "╚". str_repeat("═", 100) . "╝\n";
+
 $user= readline("Digite o seu nome de utilizador: ");
 if (ctype_space($user) or $user == "")
     $user = "Guest User";
@@ -115,7 +118,7 @@ start:
 if($opcao == 1) {
 
     echo "Bem vindo ao chat PHP via TCP/IP\nDigite 'q' para sair',\nDigite '_emoji' para listar emojis";
-    readline("\nenter...");
+    readline("\n\nENTER...");
 
     //criação do socket
     $sock = @socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
@@ -123,12 +126,19 @@ if($opcao == 1) {
     //Ligação da socket
     if(!@socket_connect($sock, $ip, $port)) die("Não foi possível ligar ao socket");
     cls();
-    //Lê a mensagem de boas vindas.
-    $output = socket_read($sock, 8192);
+    
+    $output = socket_read($sock, 8192);//Lê a mensagem de boas vindas.
     echo "$output \n";
-    //cls();
+    
     while(true){
-        $input = trim(readline("--> ")); //input utilizador
+        echo "
+        ██████╗██╗  ██╗ █████╗ ████████╗    ██████╗ ██╗  ██╗██████╗ 
+       ██╔════╝██║  ██║██╔══██╗╚══██╔══╝    ██╔══██╗██║  ██║██╔══██╗
+       ██║     ███████║███████║   ██║       ██████╔╝███████║██████╔╝
+       ██║     ██╔══██║██╔══██║   ██║       ██╔═══╝ ██╔══██║██╔═══╝ 
+       ╚██████╗██║  ██║██║  ██║   ██║       ██║     ██║  ██║██║     
+       ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚═╝     ╚═╝  ╚═╝╚═╝ \n\n";
+        $input = readline("--> "); //input utilizador
         cls();
         
         if($input == "q") {
@@ -150,7 +160,12 @@ if($opcao == 1) {
         //O array em formato JSON é convertido é apresentado
         $output = socket_read($sock, 8192);
         $output = json_decode($output, true);
+
+        echo "$topChat";
         printArray($output);
+        echo "$bottomChat";
+
+        
     }
 } 
 
@@ -166,6 +181,14 @@ else if ($opcao == 2) {
         die("Não foi possível criar o socket");
     cls();
     while(true) {
+        echo "
+        ██████╗██╗  ██╗ █████╗ ████████╗    ██████╗ ██╗  ██╗██████╗ 
+       ██╔════╝██║  ██║██╔══██╗╚══██╔══╝    ██╔══██╗██║  ██║██╔══██╗
+       ██║     ███████║███████║   ██║       ██████╔╝███████║██████╔╝
+       ██║     ██╔══██║██╔══██║   ██║       ██╔═══╝ ██╔══██║██╔═══╝ 
+       ╚██████╗██║  ██║██║  ██║   ██║       ██║     ██║  ██║██║     
+       ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚═╝     ╚═╝  ╚═╝╚═╝ \n\n";
+
         $input = readline("--> "); //input utilizador
         cls();
 
@@ -187,7 +210,10 @@ else if ($opcao == 2) {
         socket_sendto($sock, $input, strlen($input), 0, $ip, $port);
         socket_recv($sock, $output, 2048, 0);
         $output = json_decode($output, true);
+        
+        echo "$topChat";
         printArray($output);
+        echo "$bottomChat";
     }
 }
 
