@@ -8,8 +8,16 @@ function cls(){
 
 //Mensagens do clientes
 function msg($text) {
+
     global $talkback;
-    for ($i=1; $i < count($talkback) - 1; $i++) { 
+    //tratamento do array chat
+	/*for ($x = 0; $x < 20; $x++){
+		$talkback[$x] = "$text \n";
+		if (count($talkback) > 20)
+			array_shift($talkback);
+    }*/
+    
+    for ($i=0; $i < count($talkback); $i++) { 
         if($talkback[$i] == "\n") {
             unset($talkback[$i]);
             $talkback[$i] = $text;
@@ -28,6 +36,7 @@ function msg($text) {
 
 //Inserção do IP
 function menuIP() {
+    back:
     cls();
     echo("Escolha uma das opcoes?
     \nLocalhost   - 1
@@ -37,10 +46,13 @@ function menuIP() {
     if($opcao == 1)
         return("localhost");
     else if ($opcao == 2)
-        return $ip = getHostByName(getHostName());    
+        return $ip = getHostByName(getHostName()); 
+    else if ($opcao!=1 or $opcao!=2 or $opcao!=3) goto back;
 }
+
 //Função para a escolher umas das varias opções
 function protocolo() {
+    back:
     cls();
     echo("Escolha um opcao:
     \nTCP     - 1
@@ -55,17 +67,16 @@ function printArray($array){
         echo ($array[$i]);
     }
 }
+
 //start:
-
 $ip = menuIP();
-if($ip!=3 and $ip !=2 and $ip !=1) /*goto start;
-cls();
-$protocolo = protocolo();
-goto startt; //Volta ao start
-else if($ip==3) exit;*/
-
 $port = readline("Digite um numero de porta: ");
+if (ctype_space($port) or $port == "")
+    $port = 9191;
+    
 $protocolo = protocolo();
+if ($protocolo==3 or ctype_space($protocolo) or $protocolo == "")exit;
+
 $topChat = "╔". str_repeat("═",100) ."╗\n";
 $bottomChat = "╚". str_repeat("═", 100) . "╝\n";
 
