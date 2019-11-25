@@ -69,8 +69,7 @@ $protocolo = protocolo();
 $topChat = "╔". str_repeat("-",100) ."╗\n";
 $bottomChat = "╚". str_repeat("-", 100) . "╝\n";
 
-//Array das mensagens
-$talkback = array_fill(0, 20, "\n");
+$talkback = array_fill(0, 20, "\n");//array de mensagens
 
 start:
 //Apicação do protocolo TCP/IP
