@@ -88,10 +88,9 @@ function emoji_badword($msg){
             ░░░░█░░▄█▀█▀▀█▀▀▀▀▀▀█▀▀█▀█▀▀█░░░
             ░░░░▀▀▀▀░░▀▀▀░░░░░░░░▀▀▀░░▀▀░░░░ "
     );
-
+    //procura e troca a palavra chave pelo resultado
     $msg = str_replace(array_keys($badwords), array_values($badwords), $msg);
     $msg = str_replace(array_keys($emojis), array_values($emojis), $msg);
-
     return $msg;
 }
 
