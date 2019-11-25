@@ -163,7 +163,6 @@ if($opcao == 1) {
         echo "$topChat";
         printArray($output);
         echo "$bottomChat";
-
         
     }
 } 
@@ -186,11 +185,10 @@ else if ($opcao == 2) {
        ██║     ███████║███████║   ██║       ██████╔╝███████║██████╔╝
        ██║     ██╔══██║██╔══██║   ██║       ██╔═══╝ ██╔══██║██╔═══╝ 
        ╚██████╗██║  ██║██║  ██║   ██║       ██║     ██║  ██║██║     
-       ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚═╝     ╚═╝  ╚═╝╚═╝ \n\n";
+       ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚═╝     ╚═╝  ╚═╝╚═╝ \n\n"; 
+       cls();
 
         $input = readline("--> "); //input utilizador
-        cls();
-
         if($input == "q") {
             echo "A terminar sessão...\n";
             socket_shutdown($sock, 2);
