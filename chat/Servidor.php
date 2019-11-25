@@ -17,26 +17,26 @@ function cls(){
 //Mensagens do clientes
 function msg($text) {
 
-    global $talkback;
+    global $chat;
     //tratamento do array chat
 	/*for ($x = 0; $x < 20; $x++){
-		$talkback[$x] = "$text \n";
-		if (count($talkback) > 20)
-			array_shift($talkback);
+		$chat[$x] = "$text \n";
+		if (count($chat) > 20)
+			array_shift($chat);
     }*/
     
-    for ($i=0; $i < count($talkback); $i++) { 
-        if($talkback[$i] == "\n") {
-            unset($talkback[$i]);
-            $talkback[$i] = $text;
+    for ($i=0; $i < count($chat); $i++) { 
+        if($chat[$i] == "\n") {
+            unset($chat[$i]);
+            $chat[$i] = $text;
             break;
         }
-        if($i == count($talkback) - 2) {
-            for ($j=1; $j < count($talkback) - 1; $j++)
-                $talkback[$j] = $talkback[$j+1];
+        if($i == count($chat) - 2) {
+            for ($j=1; $j < count($chat) - 1; $j++)
+                $chat[$j] = $chat[$j+1];
 
-            unset($talkback[$i]);
-            $talkback[$i] = $text;
+            unset($chat[$i]);
+            $chat[$i] = $text;
             break;
         }
     }
@@ -88,7 +88,7 @@ if ($protocolo==3 or ctype_space($protocolo) or $protocolo == "")exit;
 $topChat = "╔". str_repeat("═",100) ."╗\n";
 $bottomChat = "╚". str_repeat("═", 100) . "╝\n";
 
-$talkback = array_fill(0, 20, "\n");//array de mensagens
+$chat = array_fill(0, 20, "\n");//array de mensagens
 
 start:
 //Apicação do protocolo TCP/IP
@@ -105,12 +105,13 @@ if($protocolo == 1) {
     $clientes = array($sock);
     cls();
     echo "
-    ██╗      ██████╗ ██████╗ ██████╗ ██╗   ██╗
-    ██║     ██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝
-    ██║     ██║   ██║██████╔╝██████╔╝ ╚████╔╝ 
-    ██║     ██║   ██║██╔══██╗██╔══██╗  ╚██╔╝  
-    ███████╗╚██████╔╝██████╔╝██████╔╝   ██║   
-    ╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝    ╚═╝                                                   
+    
+██╗      ██████╗ ██████╗ ██████╗ ██╗   ██╗    ████████╗ ██████╗██████╗ 
+██║     ██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝    ╚══██╔══╝██╔════╝██╔══██╗
+██║     ██║   ██║██████╔╝██████╔╝ ╚████╔╝        ██║   ██║     ██████╔╝
+██║     ██║   ██║██╔══██╗██╔══██╗  ╚██╔╝         ██║   ██║     ██╔═══╝ 
+███████╗╚██████╔╝██████╔╝██████╔╝   ██║          ██║   ╚██████╗██║     
+╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝    ╚═╝          ╚═╝    ╚═════╝╚═╝                                                       
 
 \n IP: $ip                            Porta: $port";
 
@@ -142,7 +143,7 @@ if($protocolo == 1) {
             //Mensagem  do cliente
             $text = "Novo cliente conectado: {$ip}\n";
             msg($text);
-            printArray($talkback);
+            printArray($chat);
             
             //remover o socket de escuta do array dos clientes com dados (read)
             $key = array_search($sock, $read);
@@ -160,7 +161,7 @@ if($protocolo == 1) {
                 unset($clientes[$key]);
                 $text = "Cliente {$ip} desconectado.\n";
                 msg($text);
-                printArray($talkback);
+                printArray($chat);
                 //continuar para o próximo cliente que tiver dados para serem lidos
                 continue;
             }       
@@ -181,11 +182,11 @@ if($protocolo == 1) {
                     msg($text);
                     cls();
                     echo "$topChat";
-                    printArray($talkback);
+                    printArray($chat);
                     echo "$bottomChat";
 
                     //O array é enviado em formato JSON para o cliente
-                    $json = json_encode($talkback);
+                    $json = json_encode($chat);
                     socket_write($read_sock, $json);
                 }
             }
@@ -206,16 +207,15 @@ else if ($protocolo == 2) {
     
     cls();
     echo "
+    
+        ██╗      ██████╗ ██████╗ ██████╗ ██╗   ██╗    ██╗   ██╗██████╗ ██████╗ 
+        ██║     ██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝    ██║   ██║██╔══██╗██╔══██╗
+        ██║     ██║   ██║██████╔╝██████╔╝ ╚████╔╝     ██║   ██║██║  ██║██████╔╝
+        ██║     ██║   ██║██╔══██╗██╔══██╗  ╚██╔╝      ██║   ██║██║  ██║██╔═══╝ 
+        ███████╗╚██████╔╝██████╔╝██████╔╝   ██║       ╚██████╔╝██████╔╝██║     
+        ╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝    ╚═╝        ╚═════╝ ╚═════╝ ╚═╝     
 
-    ███████╗███████╗██████╗ ██╗   ██╗███████╗██████╗         ██████╗  ██████╗  ██████╗ ███╗   ███╗
-    ██╔════╝██╔════╝██╔══██╗██║   ██║██╔════╝██╔══██╗        ██╔══██╗██╔═══██╗██╔═══██╗████╗ ████║
-    ███████╗█████╗  ██████╔╝██║   ██║█████╗  ██████╔╝        ██████╔╝██║   ██║██║   ██║██╔████╔██║
-    ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██╔══╝  ██╔══██╗        ██╔══██╗██║   ██║██║   ██║██║╚██╔╝██║
-    ███████║███████╗██║  ██║ ╚████╔╝ ███████╗██║  ██║        ██║  ██║╚██████╔╝╚██████╔╝██║ ╚═╝ ██║
-    ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝        ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝     ╚═╝
-                                                                                                
-
-    \n IP:$ip                            Porta: $port";
+        \n IP:$ip                            Porta: $port";
 
     //Loop de mensagens
     while(true) {
@@ -229,10 +229,10 @@ else if ($protocolo == 2) {
 
         cls();
         echo "$topChat";
-        printArray($talkback);
+        printArray($chat);
         echo "$bottomChat"; 
 
-        $json = json_encode($talkback);
+        $json = json_encode($chat);
         socket_sendto($sock, $json, strlen($json), 0, $ipCliente, $portaCliente);
     }
     socket_close($sock);
