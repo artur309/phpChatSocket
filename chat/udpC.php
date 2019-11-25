@@ -8,6 +8,7 @@ echo "
        ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚═╝     ╚═╝  ╚═╝╚═╝ \n\n";
 
 error_reporting(E_ALL);
+set_time_limit(0);
 
 function cls() {
     echo "\e[H\e[J";
@@ -129,8 +130,9 @@ start:
 
 //Apicação do protocolo TCP/IP
 if($opcao == 1) {
-
-    echo "Bem vindo ao chat PHP via TCP/IP\nDigite 'q' para sair',\nDigite '_emoji' para listar emojis";
+    echo "$topChat";
+    echo "Bem vindo ao chat PHP via TCP/IP\nDigite 'q' para sair',\nDigite '_emoji' para listar emojis\n";
+    echo "$bottomChat";
     readline("\n\nENTER...");
 
     //criação do socket
@@ -185,8 +187,10 @@ if($opcao == 1) {
 //Apicação do protocolo UDP
 else if ($opcao == 2) {
     
-    echo "Bem vindo ao chat PHP via UDP\nDigite 'q' para sair',\nDigite '_emoji' para listar emojis";
-    readline("\nenter...");
+    echo "$topChat";
+    echo "Bem vindo ao chat PHP via UDP\nDigite 'q' para sair',\nDigite '_emoji' para listar emojis\n";
+    echo "$bottomChat";
+    readline("\nEnter...");
 
     //Criação da socket
     $sock = @socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
