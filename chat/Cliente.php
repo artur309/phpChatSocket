@@ -128,7 +128,7 @@ if (ctype_space($user) or $user == "")
     
 start:
 
-//Apicação do protocolo TCP/IP
+//TCP/IP
 if($opcao == 1) {
     echo "$topChat";
     echo "Bem vindo ao chat PHP via TCP/IP\nDigite 'q' para sair',\nDigite '_emoji' para listar emojis\n";

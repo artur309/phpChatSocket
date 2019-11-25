@@ -76,7 +76,6 @@ function printArray($array){
     }
 }
 
-//start:
 $ip = menuIP();
 $port = readline("Digite um numero de porta: ");
 if (ctype_space($port) or $port == "")
@@ -91,7 +90,7 @@ $bottomChat = "╚". str_repeat("═", 100) . "╝\n";
 $chat = array_fill(0, 20, "\n");//array de mensagens
 
 start:
-//Apicação do protocolo TCP/IP
+//Protocolo TCP/IP
 if($protocolo == 1) {
     //criação do socket
     $sock = @socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
@@ -150,7 +149,7 @@ if($protocolo == 1) {
             unset($read[$key]);
         }
 
-        //Loop de todos os cliente que têm dados para serem lidos
+        //loop clients
         foreach ($read as $read_sock) {
             //ler os dados dos clientes
             $data = @socket_read($read_sock, 1024);
@@ -162,33 +161,23 @@ if($protocolo == 1) {
                 $text = "Cliente {$ip} desconectado.\n";
                 msg($text);
                 printArray($chat);
-                //continuar para o próximo cliente que tiver dados para serem lidos
+                //next client
                 continue;
             }       
             
-            //Remove blank spaces
             $data = trim($data); 
             if(!empty($data)){
-                //Send history
-                if($data == "/hist") {
-                    $json = json_encode($history);
-                    socket_write($read_sock, $json);
-                    cls();
-                }
-                else {
-                    //Função Emoji 
-                    $hora = date('H:i:s');
-                    $text = "<$hora> | {$ip}: $data\n";
-                    msg($text);
-                    cls();
-                    echo "$topChat";
-                    printArray($chat);
-                    echo "$bottomChat";
+                $hora = date('H:i:s');
+                $text = "<$hora> | {$ip}: $data\n";
+                msg($text);
+                cls();
+                echo "$topChat";
+                printArray($chat);
+                echo "$bottomChat";
 
-                    //O array é enviado em formato JSON para o cliente
-                    $json = json_encode($chat);
-                    socket_write($read_sock, $json);
-                }
+                //O array é enviado em formato JSON para o cliente
+                $json = json_encode($chat);
+                socket_write($read_sock, $json);
             }
         }
     }
@@ -197,7 +186,7 @@ if($protocolo == 1) {
 } 
 
 
-//Apicação do protocolo UDP
+//protocolo UDP
 else if ($protocolo == 2) {
     //Criação do socket
     $sock = @socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
@@ -217,7 +206,6 @@ else if ($protocolo == 2) {
 
         \n IP:$ip                            Porta: $port";
 
-    //Loop de mensagens
     while(true) {
 
         //Recebe os dados dos clientes
