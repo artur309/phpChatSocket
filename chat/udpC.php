@@ -6,7 +6,7 @@ echo "
        ██║     ██╔══██║██╔══██║   ██║       ██╔═══╝ ██╔══██║██╔═══╝ 
        ╚██████╗██║  ██║██║  ██║   ██║       ██║     ██║  ██║██║     
        ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚═╝     ╚═╝  ╚═╝╚═╝ \n\n";
-       
+
 error_reporting(E_ALL);
 
 function cls() {
@@ -104,7 +104,13 @@ function emoji_badword($msg){
 
 cls();
 $ip = trim(readline("IP para conectar: "));
+if (ctype_space($ip) or $ip == "")
+    $ip = "localhost";
+
 $port = trim(readline("Porta para conectar: "));
+if (ctype_space($port) or $port == "")
+    $port = 9191;
+
 $opcao = opcao();
 /*if ($opcao==3){
     cls();
