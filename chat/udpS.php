@@ -7,7 +7,7 @@ function cls(){
 }
 
 //Mensagens do clientes
-function Msg($text) {
+function msg($text) {
     global $talkback;
     for ($i=1; $i < count($talkback) - 1; $i++) { 
         if($talkback[$i] == "\n") {
@@ -66,8 +66,8 @@ else if($ip==3) exit;*/
 
 $port = readline("Digite um numero de porta: ");
 $protocolo = protocolo();
-$topChat = "╔". str_repeat("-",100) ."╗\n";
-$bottomChat = "╚". str_repeat("-", 100) . "╝\n";
+$topChat = "╔". str_repeat("═",100) ."╗\n";
+$bottomChat = "╚". str_repeat("═", 100) . "╝\n";
 
 $talkback = array_fill(0, 20, "\n");//array de mensagens
 
@@ -128,7 +128,7 @@ if($protocolo == 1) {
 
             //Mensagem  do cliente
             $text = "Novo cliente conectado: {$ip}\n";
-            Msg($text);
+            msg($text);
             printArray($talkback);
             
             //remover o socket de escuta do array dos clientes com dados (read)
@@ -146,7 +146,7 @@ if($protocolo == 1) {
                 $key = array_search($read_sock, $clientes);
                 unset($clientes[$key]);
                 $text = "Cliente {$ip} desconectado.\n";
-                Msg($text);
+                msg($text);
                 printArray($talkback);
                 //continuar para o próximo cliente que tiver dados para serem lidos
                 continue;
@@ -165,7 +165,7 @@ if($protocolo == 1) {
                     //Função Emoji 
                     $hora = date('H:i:s');
                     $text = "<$hora> | {$ip}: $data\n";
-                    Msg($text);
+                    msg($text);
                     cls();
                     echo "$topChat";
                     printArray($talkback);
@@ -212,7 +212,7 @@ else if ($protocolo == 2) {
         
         $hora = date('H:i:s');
         $text = "<$hora> | {$ipCliente}: $data\n";
-        Msg($text);
+        msg($text);
 
         cls();
         echo "$topChat";
