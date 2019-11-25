@@ -11,7 +11,7 @@ function opcao() {
     \nTCP     - 1
     \nUDP     - 2
     \nSair    - 3\n");
-    return $opcao = readline("Opcao: ");
+    return $opcao = trim(readline("Opcao: "));
 }
 
 //Echo do array
