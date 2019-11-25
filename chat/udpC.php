@@ -186,9 +186,9 @@ else if ($opcao == 2) {
        ██║     ██╔══██║██╔══██║   ██║       ██╔═══╝ ██╔══██║██╔═══╝ 
        ╚██████╗██║  ██║██║  ██║   ██║       ██║     ██║  ██║██║     
        ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚═╝     ╚═╝  ╚═╝╚═╝ \n\n"; 
-       cls();
 
         $input = readline("--> "); //input utilizador
+        
         if($input == "q") {
             echo "A terminar sessão...\n";
             socket_shutdown($sock, 2);
