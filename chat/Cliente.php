@@ -10,7 +10,7 @@ echo "
 error_reporting(E_ALL);
 set_time_limit(0);
 
-function cls() {
+function cls(){
     echo "\e[H\e[J";
 } 
 
