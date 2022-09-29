@@ -1,7 +1,7 @@
 # phpChatSocket
  Chat de terminal TCP/UDP socket em PHP
 
-![Image](https://www.modalmais.com.br/wp-content/uploads/2016/08/ico-chat.png)	
+![Image](https://png.pngtree.com/element_our/20190601/ourlarge/pngtree-chat-free-button-png-picture-image_1338295.jpg)	
 
 ---
 > **TCP**
